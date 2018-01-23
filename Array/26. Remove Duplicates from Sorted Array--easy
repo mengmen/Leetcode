@@ -1,3 +1,5 @@
+//所以这题其实直接用unique就好了
+
 /**26. Remove Duplicates from Sorted Array    --easy
 Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
 
@@ -36,4 +38,3 @@ public:
     }
 };
 
-//所以这题其实直接用unique就好了
