@@ -1,0 +1,76 @@
+/**1.Two sum
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+*/
+
+//147 ms
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        for(int i=0;i<nums.size();i++)
+        {
+            int d=target-nums[i];
+            vector<int>::iterator it=find(nums.begin(),nums.end(),d);
+            int index=it-nums.begin();
+            if(it!=nums.end()&&index!=i)
+            {
+                res.push_back(i);
+                res.push_back(index);
+                break;
+            }
+        }
+        return res;
+    }
+};
+
+
+//200ms
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> res;
+        for(int i=0;i<nums.size();i++)
+        {
+            int d=target-nums[i];
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(nums[j]==d)
+                {
+                    res.push_back(i);
+                    res.push_back(j);
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+//7ms
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> map;
+        int n = (int)nums.size();
+        for (int i = 0; i < n; i++) {
+            auto p = map.find(target-nums[i]);
+            if (p!=map.end()) {
+                return {p->second, i};
+            }
+            map[nums[i]]=i;
+        }
+    }
+};
+/**
+哈希容器unordered_map，和map相比，它的key是无序的
+1、在以前的值中寻找匹配，而不是在未知中寻找；
+2、每一个看过的值都记录下来，不做重复查找；
+3、unordered_map的key存着值，便于快速查找，value存着结果需要返回的index；
+4、unordered_map.find找的是key。
+*/
