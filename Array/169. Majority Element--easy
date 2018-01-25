@@ -1,0 +1,48 @@
+//major element 出现的次数减去其他所有元素的次数肯定是大于0的
+//用count来统计截止当前出现最多的元素的次数，且次数可以因其他元素的出现而减一，
+//直到count=0时，重新确定major
+
+/**169. Majority Element--easy
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+You may assume that the array is non-empty and the majority element always exist in the array.
+*/
+
+//27ms mine
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        if(nums.size()<3) return nums[0];
+        unordered_map<int,int> mps;
+        for(int i=0;i<nums.size();i++){
+            if(mps.find(nums[i])!=mps.end()){
+                mps[nums[i]]++;
+                if(mps.at(nums[i])>(nums.size()/2)){
+                    return nums[i];
+                }
+            }
+            else{
+                mps[nums[i]]=1;
+            }
+        }
+    }
+};
+
+//20ms
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count=0,major=nums[0];
+        for(int i=0;i<nums.size();i++){
+            if(count==0){
+                major=nums[i];
+            }
+            if(major==nums[i]){
+                count++;
+            }else{
+                count--;
+            }
+        }
+        return major;
+    }
+};
