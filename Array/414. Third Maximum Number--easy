@@ -1,0 +1,75 @@
+//用set 存top
+//set的begin()是最小的，set的rbegin()是最大的
+//利用了set 有序的特点
+
+/**414. Third Maximum Number
+Given a non-empty array of integers, return the third maximum number in this array. If it does not exist, return the maximum number. The time complexity must be in O(n).
+
+Example 1:
+Input: [3, 2, 1]
+
+Output: 1
+
+Explanation: The third maximum is 1.
+Example 2:
+Input: [1, 2]
+
+Output: 2
+
+Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
+Example 3:
+Input: [2, 2, 3, 1]
+
+Output: 1
+
+Explanation: Note that the third maximum here means the third maximum distinct number.
+Both numbers with value 2 are both considered as second maximum.
+*/
+
+//7ms not slow but unreadable
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        vector<int> max;
+        int t=max.size(),tmp;
+        max.push_back(nums[0]);
+        for(int i=1;i<nums.size();i++){
+            for(int j=0;j<(max.size()>3?3:max.size());j++){
+                if(nums[i]==max[j]) break;
+                if(nums[i]>max[j]){
+                    if(max.size()<3){
+                        max.push_back(max[max.size()-1]);
+                    }
+                    t=max.size()-1-j;
+                    while(t){
+                        max[j+t]=max[j+t-1];
+                        t--;
+                    }
+                    max[j]=nums[i];
+                    break;
+                }
+            }
+            if(max.size()<3&&nums[i]<max[max.size()-1]){
+                max.push_back(nums[i]);
+            }
+        }
+        if(max.size()<3) return max[0];
+        else return max[2];
+    }
+};
+
+
+//others
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> top;
+        for(const int &num:nums){
+            top.insert(num);
+            if(top.size()>3){
+                top.erase(top.begin());
+            }
+        }
+        return top.size()==3?*top.begin():*top.rbegin();
+    }
+};
