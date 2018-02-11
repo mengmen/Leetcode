@@ -42,7 +42,7 @@ public:
     }
 };
 
-//O(n) 39ms
+//O(n) time O(1) space 39ms
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
