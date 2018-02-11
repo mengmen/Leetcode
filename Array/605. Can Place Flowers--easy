@@ -1,3 +1,4 @@
+//巧用continue
 /**605. Can Place Flowers--easy
 Suppose you have a long flowerbed in which some of the plots are planted and some are not. However, flowers cannot be planted in adjacent plots - they would compete for water and both would die.
 
@@ -51,5 +52,24 @@ public:
         }
         
         return false;
+    }
+};
+
+//16ms 
+class Solution {
+public:
+    bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+        if (n <= 0) return true;
+        int planted = 0;
+        // Try to plant flower greedily.
+        for (int i = 0; i != flowerbed.size(); ++i) {
+            if (flowerbed[i] == 1) continue;
+            if (i > 0 && flowerbed[i - 1] == 1) continue;
+            if (i < flowerbed.size() - 1 && flowerbed[i + 1] == 1) continue;
+            flowerbed[i] = 1;
+            ++planted;
+            if (planted >= n) break;
+        }
+        return planted == n;
     }
 };
