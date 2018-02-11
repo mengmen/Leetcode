@@ -3,7 +3,7 @@
 1、在以前的值中寻找匹配，而不是在未知中寻找；
 2、每一个看过的值都记录下来，不做重复查找；
 3、unordered_map的key存着值，便于快速查找，value存着结果需要返回的index；
-4、unordered_map.find找的是key。
+4、unordered_map.find参数是key，返回位置。
 */
 
 /**001.Two sum  --easy
